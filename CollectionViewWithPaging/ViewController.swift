@@ -35,8 +35,20 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         configureCollectionViewLayoutItemSize()
     }
     
+    private func calculateSectionInset() -> CGFloat {
+        let deviceIsIpad = UIDevice.current.userInterfaceIdiom == .pad
+        let deviceOrientationIsLandscape = UIDevice.current.orientation.isLandscape
+        let cellBodyViewIsExpended = deviceIsIpad || deviceOrientationIsLandscape
+        let cellBodyWidth: CGFloat = 236 + (cellBodyViewIsExpended ? 174 : 0)
+        
+        let buttonWidth: CGFloat = 50
+        
+        let inset = (collectionViewLayout.collectionView!.frame.width - cellBodyWidth + buttonWidth) / 4
+        return inset
+    }
+    
     private func configureCollectionViewLayoutItemSize() {
-        let inset: CGFloat = 25
+        let inset: CGFloat = calculateSectionInset() // This inset calculation is some magic so the next and the previous cells will peek from the sides. Don't worry about it
         collectionViewLayout.sectionInset = UIEdgeInsets(top: 0, left: inset, bottom: 0, right: inset)
         
         collectionViewLayout.itemSize = CGSize(width: collectionViewLayout.collectionView!.frame.size.width - inset * 2, height: collectionViewLayout.collectionView!.frame.size.height)
