@@ -26,7 +26,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         super.viewDidLoad()
         
         collectionViewLayout.minimumLineSpacing = 0
-        configureCollectionViewLayoutItemSize()
     }
     
     override func viewDidLayoutSubviews() {
@@ -52,7 +51,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         collectionViewLayout.sectionInset = UIEdgeInsets(top: 0, left: inset, bottom: 0, right: inset)
         
         collectionViewLayout.itemSize = CGSize(width: collectionViewLayout.collectionView!.frame.size.width - inset * 2, height: collectionViewLayout.collectionView!.frame.size.height)
-        collectionViewLayout.collectionView!.reloadData()
     }
     
     private func indexOfMajorCell() -> Int {
