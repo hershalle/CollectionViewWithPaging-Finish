@@ -56,7 +56,9 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     private func indexOfMajorCell() -> Int {
         let itemWidth = collectionViewLayout.itemSize.width
         let proportionalOffset = collectionViewLayout.collectionView!.contentOffset.x / itemWidth
-        return Int(round(proportionalOffset))
+        let index = Int(round(proportionalOffset))
+        let safeIndex = max(0, min(dataSource.count - 1, index))
+        return safeIndex
     }
     
     // ===================================
@@ -113,7 +115,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             }, completion: nil)
             
         } else {
-            // This is a much better to way to scroll to a cell:
+            // This is a much better way to scroll to a cell:
             let indexPath = IndexPath(row: indexOfMajorCell, section: 0)
             collectionViewLayout.collectionView!.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
         }
